@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Трест «Сургутремстрой»{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    {% block css %}{% endblock %}
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container">
+        <a href="{% url 'index' %}" class="navbar-brand">
+            <img src="{% static 'images/Surgutneftegaz_logo-Photoroom.png' %}" alt="Сургутнефтегаз">
+            <div>
+                <div class="brand-sub">ПАО «Сургутнефтегаз»</div>
+                <div class="brand-main">Трест «Сургутремстрой»</div>
+            </div>
+        </a>
+        <ul class="navbar-links" id="nav-links">
+            <li><a href="{% url 'index' %}">Главная</a></li>
+            <li><a href="{% url 'about' %}">О нас</a></li>
+            <li><a href="{% url 'equipment' %}">Оборудование</a></li>
+            <li><a href="{% url 'news' %}">Новости</a></li>
+            <li><a href="{% url 'vacancies' %}">Вакансии</a></li>
+        </ul>
+        <button class="burger" id="burger" aria-label="Меню">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+{% block content %}{% endblock %}
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand-logo">
+                    <img src="{% static 'images/Surgutneftegaz_logo-Photoroom.png' %}" alt="Сургутнефтегаз" class="footer-logo-img">
+                    <div>
+                        <div class="footer-brand-sub">ПАО «Сургутнефтегаз»</div>
+                        <div class="footer-brand-name">Трест «Сургутремстрой»</div>
+                    </div>
+                </div>
+                <p class="footer-desc">Структурное подразделение ПАО «Сургутнефтегаз», выполняющее строительно-монтажные и ремонтные работы на объектах нефтяной промышленности.</p>
+            </div>
+            <div>
+                <div class="footer-col-title">Навигация</div>
+                <ul class="footer-links">
+                    <li><a href="{% url 'index' %}">Главная</a></li>
+                    <li><a href="{% url 'about' %}">О нас</a></li>
+                    <li><a href="{% url 'equipment' %}">Оборудование</a></li>
+                    <li><a href="{% url 'news' %}">Новости</a></li>
+                    <li><a href="{% url 'vacancies' %}">Вакансии</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer-col-title">Контакты</div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-location-dot"></i>
+                    {% if cpp %}{{ cpp.address }}{% else %}г. Сургут{% endif %}
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-phone"></i>
+                    {% if cpp %}{{ cpp.phone }}{% else %}+7 (3462) XX-XX-XX{% endif %}
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-envelope"></i>
+                    {% if cpp %}{{ cpp.email }}{% else %}info@surgutremstroy.ru{% endif %}
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-clock"></i>
+                    {% if cpp %}{{ cpp.working_hours }}{% else %}Пн–Пт: 08:00 – 17:00{% endif %}
+                </div>
+            </div>
+            <div>
+                <div class="footer-col-title">Подразделения ЦПП</div>
+                <div class="footer-depts">
+                    <div class="footer-dept-item">ССК<span>Служба снабжения и комплектации</span></div>
+                    <div class="footer-dept-item">УПР<span>Участок погрузо-разгрузочных работ</span></div>
+                    <div class="footer-dept-item">УГП<span>Участок готовой продукции</span></div>
+                    <div class="footer-dept-item">УОП<span>Участок обслуживания производства</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d790.9940452916637!2d73.33573269313767!3d61.24474013351925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2s!5e1!3m2!1sru!2sru!4v1782061053702!5m2!1sru!2sru" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <br>
+        <div class="footer-bottom">
+            <p>© 2026 Трест «Сургутремстрой» - ПАО «Сургутнефтегаз». Все права защищены.</p>
+            <p>г. Сургут, Тюменская обл.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="{% static 'js/script.js' %}"></script>
+{% block js %}{% endblock %}
+
+</body>
+</html>

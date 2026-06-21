@@ -1,0 +1,6 @@
+.vacancy-item.closed {
+    opacity: 0.7;
+}
+.vacancy-item.closed h4 {
+    color: var(--color-ink-light);
+}

@@ -1,0 +1,98 @@
+.equipment-card-img-empty {
+    width: 100%;
+    aspect-ratio: 16/10;
+    background: #e9e5de;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.equipment-card-img-empty i {
+    font-size: 2rem;
+    color: #b0aa9f;
+}
+.equipment-dept i {
+    font-size: 0.7rem;
+}
+.equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+}
+.equipment-card {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.equipment-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card-hover);
+}
+.equipment-card-img {
+    overflow: hidden;
+    background: #e9e5de;
+}
+.equipment-card-img img {
+    width: 100%;
+    aspect-ratio: 16/10;
+    object-fit: cover;
+    display: block;
+}
+.equipment-card-body {
+    padding: 1.25rem;
+}
+.equipment-card-body h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    margin-bottom: 0.5rem;
+}
+.equipment-card-body p {
+    font-size: 0.8rem;
+    color: var(--color-ink-light);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+}
+.equipment-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.equipment-dept {
+    font-size: 0.75rem;
+    color: var(--color-ink-light);
+}
+.equipment-status {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+.equipment-status.working {
+    background: rgba(0,155,77,0.08);
+    color: var(--color-green);
+}
+.equipment-status.repair {
+    background: rgba(255,107,0,0.08);
+    color: var(--color-orange);
+}
+.equipment-status.decommissioned {
+    background: rgba(227,30,36,0.08);
+    color: var(--color-red);
+}
+@media (max-width: 1024px) {
+    .equipment-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 768px) {
+    .equipment-grid {
+        grid-template-columns: 1fr;
+    }
+}

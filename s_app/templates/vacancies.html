@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Вакансии - ЦПП Трест «Сургутремстрой»{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'vacancies.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="page-hero">
+    <div class="container">
+        <div class="page-hero-content">
+            <div class="page-hero-text">
+                <div class="section-label" style="color:rgba(255,255,255,0.5);margin-bottom:0.75rem">Работа у нас</div>
+                <h1>Вакансии ЦПП</h1>
+                <p>Открытые позиции и карьерные возможности в цехе подготовки производства</p>
+            </div>
+            <div class="page-hero-icon">
+                <i class="fas fa-briefcase"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="section alt">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="section-label">Открытые позиции</div>
+            <h2>Активные вакансии</h2>
+        </div>
+        <div class="vacancies-list">
+            {% for item in open_vacancies %}
+            <div class="vacancy-item reveal reveal-delay-{{ forloop.counter }}">
+                <div class="vacancy-info">
+                    <h4>{{ item.title }}</h4>
+                    <p>{{ item.requirements }}</p>
+                </div>
+                <span class="vacancy-slots">{{ item.slots }} место{% if item.slots > 1 %}а{% endif %}</span>
+            </div>
+            {% empty %}
+            <p style="color:var(--color-ink-light)">На данный момент открытых вакансий нет.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% if closed_vacancies %}
+<section class="section">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="section-label">Архив</div>
+            <h2>Закрытые вакансии</h2>
+            <p>Позиции, на которые временно не ведётся набор</p>
+        </div>
+        <div class="vacancies-list">
+            {% for item in closed_vacancies %}
+            <div class="vacancy-item closed reveal reveal-delay-{{ forloop.counter }}">
+                <div class="vacancy-info">
+                    <h4>{{ item.title }}</h4>
+                    <p>{{ item.requirements }}</p>
+                </div>
+                <span class="vacancy-slots empty">Вакансий нет</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<section class="cta-section">
+    <div class="container">
+        <h2>Отправить резюме</h2>
+        <p>Свяжитесь с отделом кадров треста «Сургутремстрой» для получения информации о трудоустройстве.</p>
+        <a href="mailto:hr@surgutremstroy.ru" class="btn-cta">Написать на hr@surgutremstroy.ru</a>
+        <br>
+        <br>
+    </div>
+</section>
+
+{% endblock %}

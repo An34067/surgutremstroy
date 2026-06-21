@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Оборудование - ЦПП Трест «Сургутремстрой»{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'equipment.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="page-hero">
+    <div class="container">
+        <div class="page-hero-content">
+            <div class="page-hero-text">
+                <div class="section-label" style="color:rgba(255,255,255,0.5);margin-bottom:0.75rem">Техника</div>
+                <h1>Оборудование</h1>
+                <p>Перечень оборудования цеха подготовки производства</p>
+            </div>
+            <div class="page-hero-stats">
+                <div class="page-stat">
+                    <div class="page-stat-num">50+</div>
+                    <div class="page-stat-label">единиц техники</div>
+                </div>
+                <div class="page-stat">
+                    <div class="page-stat-num">3</div>
+                    <div class="page-stat-label">статуса</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        <div class="equipment-grid">
+            {% for item in equipments %}
+            <div class="equipment-card reveal reveal-delay-{{ forloop.counter }}">
+                <div class="equipment-card-img">
+                    {% with item.photos.first as photo %}
+                    {% if photo %}
+                    <img src="{{ photo.photo.url }}" alt="{{ item.title }}">
+                    {% else %}
+                    <div class="equipment-card-img-empty">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+                </div>
+                <div class="equipment-card-body">
+                    <h3>{{ item.title }}</h3>
+                    {% if item.description %}
+                    <p>{{ item.description|truncatewords:15 }}</p>
+                    {% endif %}
+                    <div class="equipment-card-footer">
+                        <span class="equipment-status {{ item.status }}">{{ item.get_status_display }}</span>
+                        {% if item.department %}
+                        <span class="equipment-dept"><i class="fas fa-building"></i> {{ item.department.name }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p style="color:var(--color-ink-light)">Оборудование не добавлено.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

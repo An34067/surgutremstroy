@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Новости - ЦПП Трест «Сургутремстрой»{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'news.css' %}">
+<link rel="stylesheet" href="{% static 'index.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="page-hero">
+    <div class="container">
+        <div class="page-hero-content">
+            <div>
+                <div class="section-label page-hero-label">События</div>
+                <h1>Лента новостей</h1>
+                <p>Последние события из жизни ЦПП треста «Сургутремстрой»</p>
+            </div>
+            <div class="page-hero-icon">
+                <i class="fas fa-newspaper"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        <div class="news-page-grid">
+            {% for item in news %}
+            <a href="{% url 'news_detail' item.pk %}" class="news-card">
+                <div class="news-card-img">
+                    {% if item.cover %}
+                    <img src="{{ item.cover.url }}" alt="{{ item.title }}">
+                    {% else %}
+                    <div style="width:100%;aspect-ratio:16/10;background:#d6d2ca;display:flex;align-items:center;justify-content:center;">
+                        <i class="fas fa-image" style="font-size:2rem;color:#b0aa9f;"></i>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="news-card-body">
+                    <h4>{{ item.title }}</h4>
+                    <p>{{ item.content|truncatewords:20 }}</p>
+                    <div class="news-card-footer">
+                        <span class="news-card-date"><i class="fas fa-calendar-alt"></i> {{ item.published_at|date:"d M Y" }}</span>
+                        <span class="news-card-arrow"><i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </a>
+            {% empty %}
+            <p style="color:var(--color-ink-light)">Новостей пока нет.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

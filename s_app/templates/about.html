@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}О нас - ЦПП Трест «Сургутремстрой»{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'about.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="page-hero">
+    <div class="container">
+        <div class="page-hero-content">
+            <div class="page-hero-text">
+                <div class="section-label" style="color:rgba(255,255,255,0.5);margin-bottom:0.75rem">О подразделении</div>
+                <h1>Цех подготовки производства</h1>
+                <p>Структурное подразделение треста «Сургутремстрой». Обеспечиваем строительные участки материалами, инструментом и оборудованием.</p>
+            </div>
+            <div class="page-hero-stats">
+                <div class="page-stat">
+                    <div class="page-stat-num">100</div>
+                    <div class="page-stat-label">сотрудников</div>
+                </div>
+                <div class="page-stat">
+                    <div class="page-stat-num">4</div>
+                    <div class="page-stat-label">участка</div>
+                </div>
+                <div class="page-stat">
+                    <div class="page-stat-num">40+</div>
+                    <div class="page-stat-label">лет работы</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="section alt">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="section-label">Структура</div>
+            <h2>Подразделения</h2>
+        </div>
+        <div class="dept-grid">
+            {% for dept in departments %}
+            <div class="dept-card reveal reveal-delay-{{ forloop.counter }}">
+                <h3>{{ dept.name }}</h3>
+                {% if dept.description %}
+                <p>{{ dept.description }}</p>
+                {% endif %}
+                <div class="dept-contacts">
+                    {% if dept.address %}<span><i class="fas fa-location-dot"></i> {{ dept.address }}</span>{% endif %}
+                    {% if dept.phone %}<span><i class="fas fa-phone"></i> {{ dept.phone }}</span>{% endif %}
+                    {% if dept.email %}<span><i class="fas fa-envelope"></i> {{ dept.email }}</span>{% endif %}
+                    {% if dept.working_hours %}<span><i class="fas fa-clock"></i> {{ dept.working_hours }}</span>{% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <p style="color:var(--color-ink-light)">Подразделения не добавлены.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="section-label">Команда</div>
+            <h2>Сотрудники</h2>
+        </div>
+        <div class="employees-grid">
+            {% for emp in employees %}
+            <div class="employee-card reveal reveal-delay-{{ forloop.counter }}">
+                <div class="employee-avatar">
+                    {% if emp.photo %}
+                    <img src="{{ emp.photo.url }}" alt="{{ emp.full_name }}">
+                    {% else %}
+                    <div class="helmet-icon {{ emp.helmet_color|default:'default' }}">
+                        <i class="fas fa-hard-hat"></i>
+                    </div>
+                    {% endif %}
+                </div>
+                <h4>{{ emp.full_name }}</h4>
+                <div class="position">{{ emp.position }}</div>
+                {% if emp.department %}
+                <div class="dept-name">{{ emp.department.name }}</div>
+                {% endif %}
+            </div>
+            {% empty %}
+            <p style="color:var(--color-ink-light)">Сотрудники не добавлены.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

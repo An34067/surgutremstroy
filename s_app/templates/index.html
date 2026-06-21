@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Главная - ЦПП Трест «Сургутремстрой»{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'index.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <video class="hero-video" autoplay muted loop playsinline>
+        <source src="{% static 'video/hero.mp4' %}" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-badge">
+            <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:rgba(255,255,255,0.8);fill:none;stroke-width:2;stroke-linecap:round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+            Сургут · Цех подготовки производства
+        </div>
+        <h1>Трест «Сургутремстрой»</h1>
+        <p>Цех подготовки производства. Обеспечиваем строительные участки всем необходимым - от материалов до техники.</p>
+        <div class="hero-btns">
+            <a href="#map" class="btn btn-ghost">Карта ЦПП</a>
+            <a href="#structure" class="btn btn-primary">Структура цеха</a>
+        </div>
+    </div>
+    <div class="hero-scroll">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        Листай вниз
+    </div>
+</section>
+
+<section class="section" id="news">
+    <div class="container">
+        <div class="news-header reveal">
+            <div class="section-header" style="margin-bottom:0">
+                <div class="section-label">События</div>
+                <h2>Лента новостей</h2>
+                <p>Последние события из жизни ЦПП</p>
+            </div>
+            <a href="{% url 'news' %}">Все новости →</a>
+        </div>
+
+        {% if news %}
+        {% with featured=news.0 %}
+        <a href="{% url 'news_detail' featured.pk %}" class="news-featured reveal reveal-delay-1">
+            <div class="news-featured-img">
+                {% if featured.cover %}
+                <img src="{{ featured.cover.url }}" alt="{{ featured.title }}">
+                {% else %}
+                <div style="width:100%;height:100%;min-height:280px;background:#d6d2ca;display:flex;align-items:center;justify-content:center;color:#6b6b6b;font-size:0.85rem;">
+                    <i class="fas fa-image" style="font-size:3rem;color:#b0aa9f;"></i>
+                </div>
+                {% endif %}
+            </div>
+            <div class="news-featured-body">
+                <span class="news-badge blue">Новость</span>
+                <h3>{{ featured.title }}</h3>
+                <p>{{ featured.content|truncatewords:30 }}</p>
+                <div class="news-meta">
+                    <span>{{ featured.published_at|date:"d F Y" }}</span>
+                    <span>·</span>
+                    <span>{{ featured.author }}</span>
+                </div>
+                <span class="news-read-more">Читать далее →</span>
+            </div>
+        </a>
+        {% endwith %}
+
+        <div class="news-grid">
+            {% for item in news|slice:"1:4" %}
+            <a href="{% url 'news_detail' item.pk %}" class="news-card reveal reveal-delay-{{ forloop.counter }}">
+                <div class="news-card-img">
+                    {% if item.cover %}
+                    <img src="{{ item.cover.url }}" alt="{{ item.title }}">
+                    {% else %}
+                    <div style="width:100%;aspect-ratio:16/10;background:#d6d2ca;display:flex;align-items:center;justify-content:center;">
+                        <i class="fas fa-image" style="font-size:2rem;color:#b0aa9f;"></i>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="news-card-body">
+                    <h4>{{ item.title }}</h4>
+                    <p>{{ item.content|truncatewords:20 }}</p>
+                    <div class="news-card-footer">
+                        <span class="news-card-date">{{ item.published_at|date:"d F Y" }}</span>
+                        <span class="news-card-arrow">→</span>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+
+        <div class="news-more reveal">
+            <a href="{% url 'news' %}" class="btn btn-outline">Все новости</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<section class="section alt" id="structure">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="section-label">Организация</div>
+            <h2>Структура ЦПП</h2>
+            <p>Руководство и участки цеха подготовки производства</p>
+        </div>
+
+        <div class="structure-sub reveal">Руководство</div>
+        <div class="leaders-grid">
+            {% for leader in leaders %}
+            <div class="leader-card reveal reveal-delay-{{ forloop.counter }}">
+                <div class="leader-avatar">
+                    {% if leader.photo %}
+                    <img src="{{ leader.photo.url }}" alt="{{ leader.full_name }}">
+                    {% else %}
+                    <div class="helmet-icon {{ leader.helmet_color|default:'default' }}">
+                        <i class="fas fa-hard-hat"></i>
+                    </div>
+                    {% endif %}
+                </div>
+                <h4>{{ leader.full_name }}</h4>
+                <div class="position">{{ leader.position }}</div>
+                <div class="leader-info">
+                    {% if leader.cabinet %}<span><i class="fas fa-door-open"></i> Каб. {{ leader.cabinet }}</span>{% endif %}
+                    {% if leader.phone %}<span><i class="fas fa-phone"></i> {{ leader.phone }}</span>{% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="structure-sub reveal">Участки ЦПП</div>
+        <div class="units-grid">
+            {% for unit in worktypes %}
+            <div class="unit-card reveal reveal-delay-{{ forloop.counter }}">
+                <div class="unit-card-header">
+                    <div class="unit-icon">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h4>{{ unit.name }}</h4>
+                </div>
+                <p>{{ unit.description }}</p>
+                {% if unit.staff %}
+                <div class="unit-staff"><i class="fas fa-users"></i> {{ unit.staff }} чел.</div>
+                {% endif %}
+            </div>
+            {% empty %}
+            <p style="color:var(--color-ink-light)">Участки не добавлены.</p>
+            {% endfor %}
+        </div>
+
+        <div class="vacancies-block reveal" id="vacancies">
+            <h3>Вакансии</h3>
+            <p class="vacancies-sub">Открытые позиции в ЦПП</p>
+            <div class="vacancies-list">
+                {% for item in vacancies %}
+                <div class="vacancy-item reveal reveal-delay-{{ forloop.counter }}">
+                    <div class="vacancy-info">
+                        <h4>{{ item.title }}</h4>
+                        <p>{{ item.requirements }}</p>
+                    </div>
+                    {% if item.slots > 0 %}
+                    <span class="vacancy-slots">{{ item.slots }} место{% if item.slots > 1 %}а{% endif %}</span>
+                    {% else %}
+                    <span class="vacancy-slots empty">Вакансий нет</span>
+                    {% endif %}
+                </div>
+                {% empty %}
+                <p style="color:var(--color-ink-light)">Вакансий нет.</p>
+                {% endfor %}
+            </div>
+            {% if vacancies %}
+            <div class="vacancies-more reveal">
+                <a href="{% url 'vacancies' %}" class="btn btn-outline">Все вакансии →</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="section" id="map">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="section-label">Территория</div>
+            <h2>Карта ЦПП</h2>
+            <p>Расположение объектов цеха на территории треста</p>
+        </div>
+        <div class="map-placeholder reveal">
+            {% if map_image %}
+            <img src="{{ map_image }}" alt="Карта ЦПП" class="map-img">
+            {% else %}
+            <div class="map-placeholder-empty">Карта будет добавлена позже</div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="container">
+        <h2>Хочешь к нам в команду?</h2>
+        <p>Мы всегда рады новым кадрам. Северные надбавки, стабильная зарплата, дружный коллектив.</p>
+        <a href="{% url 'vacancies' %}" class="btn-cta">Смотреть вакансии</a>
+    </div>
+</section>
+
+{% endblock %}

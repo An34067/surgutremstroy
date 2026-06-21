@@ -1,0 +1,19 @@
+.news-page-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+}
+.news-card-date i {
+    font-size: 0.7rem;
+    margin-right: 0.2rem;
+}
+@media (max-width: 1024px) {
+    .news-page-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 768px) {
+    .news-page-grid {
+        grid-template-columns: 1fr;
+    }
+}
