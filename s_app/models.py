@@ -78,7 +78,7 @@ class Photo(models.Model):
     equipment = models.ForeignKey(
         Equipment, 
         on_delete=models.CASCADE, 
-        related_name='photos',  # ← ДОБАВИТЬ
+        related_name='photos',
         verbose_name='Оборудование'
     )
     photo = models.ImageField('Фото', upload_to='equipment/')
