@@ -90,8 +90,7 @@ def about(request):
     return render(request, 'about.html', {
         'cpp': cpp,
         'departments': departments,
-        'employees': employees,
-        # 'get_helmet_class': get_helmet_class,  # ← теперь можно удалить, он не нужен
+        'employees': employees
     })
 
 def equipment(request):
