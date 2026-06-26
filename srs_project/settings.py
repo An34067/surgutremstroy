@@ -122,3 +122,13 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATIC_URL = '/static/'
+STATIC_ROOT = '/home/surgutremstroy/surgutremstroy-main/staticfiles'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 's_app' / 'static',
+]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '/home/surgutremstroy/surgutremstroy-main/media'
